@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniqueDrinks.Data;
 
 namespace UniqueDrinks.Data.Migrations
 {
     [DbContext(typeof(UniqueDb))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918143411_teste")]
+    partial class teste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace UniqueDrinks.Data.Migrations
                         new
                         {
                             Id = "c",
-                            ConcurrencyStamp = "cb5d8dcd-9db2-4880-878d-cc047b860b53",
+                            ConcurrencyStamp = "988df096-7d37-4b44-8793-7b3b2c484dd1",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         },
                         new
                         {
                             Id = "g",
-                            ConcurrencyStamp = "ba193b00-a729-442a-b0bd-e4672e83b262",
+                            ConcurrencyStamp = "603c6620-8f7c-499e-96fa-6f7901e1fe05",
                             Name = "Gestor",
                             NormalizedName = "GESTOR"
                         });
@@ -254,6 +256,7 @@ namespace UniqueDrinks.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagem")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
@@ -289,6 +292,9 @@ namespace UniqueDrinks.Data.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Fotografia")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniqueDrinks.Data;
 
 namespace UniqueDrinks.Data.Migrations
 {
     [DbContext(typeof(UniqueDb))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918150641_AddImagem")]
+    partial class AddImagem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace UniqueDrinks.Data.Migrations
                         new
                         {
                             Id = "c",
-                            ConcurrencyStamp = "cb5d8dcd-9db2-4880-878d-cc047b860b53",
+                            ConcurrencyStamp = "802117fa-adae-4d24-8eb8-c3d070e321e0",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         },
                         new
                         {
                             Id = "g",
-                            ConcurrencyStamp = "ba193b00-a729-442a-b0bd-e4672e83b262",
+                            ConcurrencyStamp = "bf3f5bea-7bcf-4ffc-b61d-24408b7816e3",
                             Name = "Gestor",
                             NormalizedName = "GESTOR"
                         });
@@ -289,6 +291,9 @@ namespace UniqueDrinks.Data.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Fotografia")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()

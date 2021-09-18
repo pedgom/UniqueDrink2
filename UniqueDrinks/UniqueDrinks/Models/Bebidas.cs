@@ -44,7 +44,7 @@ namespace UniqueDrinks.Models
         /// <summary>
         /// Imagem referente à bebida
         /// </summary>
-        [Required]
+        
         public string Imagem { get; set; }
 
 
