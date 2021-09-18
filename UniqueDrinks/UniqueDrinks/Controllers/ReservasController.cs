@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,7 @@ namespace UniqueDrinks.Controllers
     public class ReservasController : Controller
     {
         private readonly UniqueDb _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public ReservasController(UniqueDb context)
         {
@@ -22,8 +25,19 @@ namespace UniqueDrinks.Controllers
         // GET: Reservas
         public async Task<IActionResult> Index()
         {
-            var uniqueDb = _context.Reservas.Include(r => r.Bebida).Include(r => r.ListaReserva);
-            return View(await uniqueDb.ToListAsync());
+            float total = 0;
+            var user = await _userManager.GetUserAsync(User);
+            var cliente = _context.Clientes.FirstOrDefault(c => c.Username == user.Id);
+            var uniqueDb = _context.Reservas.Include(r => r.Bebida).Include(r => r.ListaReserva).Where(c => c.ListaReserva.ClienteFK == cliente.Id && !c.ListaReserva.CheckOut); ;
+            List<Reservas> reserva = await uniqueDb.ToListAsync();
+            foreach (var reservas in reserva)
+            {
+                float preco = reservas.Bebida.Preco;
+                int quantidade = reservas.Quantidade;
+                total += preco * quantidade;
+            }
+            ViewBag.total = total;
+            return View(reserva);
         }
 
         // GET: Reservas/Details/5
@@ -57,19 +71,49 @@ namespace UniqueDrinks.Controllers
         // POST: Reservas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservaID,Quantidade,LRIdFK,BebidaFK")] Reservas reservas)
+        public async Task<IActionResult> Create(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                _context.Add(reservas);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            ViewData["BebidaFK"] = new SelectList(_context.Bebidas, "Id", "Categoria", reservas.BebidaFK);
-            ViewData["LRIdFK"] = new SelectList(_context.ListaReservas, "LRId", "LRId", reservas.LRIdFK);
-            return View(reservas);
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize]
+        public async Task<ActionResult> AddToShoppingCart(int? bebidaId)
+        {
+            if (bebidaId == null)
+            {
+                return RedirectToAction("Index", "Bebidas"); ;
+            }
+            var selectB = _context.Bebidas.FirstOrDefault(s => s.Id == bebidaId);
+
+            if (selectB == null)
+            {
+                return RedirectToAction("Index", "Bebidas"); ;
+            }
+            var user = await _userManager.GetUserAsync(User);
+            var cliente = _context.Clientes.FirstOrDefault(c => c.Username == user.Id);
+            var cart = _context.ListaReservas.FirstOrDefault(c => c.ClienteFK == cliente.Id && !c.CheckOut);
+            var reserva = new Reservas
+            {
+                BebidaFK = (int)bebidaId,
+                LRIdFK = cart.LRId,
+                Quantidade = 1
+            };
+            _context.Add(reserva);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Bebidas");
         }
 
         // GET: Reservas/Edit/5

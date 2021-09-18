@@ -4,44 +4,52 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>A sua Reserva</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Bebida)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Quantidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListaReserva)
+                @Html.DisplayNameFor(model => model.Bebida.Preco)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bebida)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListaReserva.LRId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bebida.Categoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservaID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReservaID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReservaID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bebida.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bebida.Preco)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.ReservaID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+<h3>
+    @ViewBag.total
+</h3>
+@if (Model.ToArray().Length > 0)
+{
+    <a class="btn btn-primary" asp-controller="Carts" asp-action="CheckoutCart">Checkout!</a>
+}
+<a asp-controller="Carts" asp-action="Index">Histórico de Reservas</a>
