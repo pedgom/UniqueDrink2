@@ -54,7 +54,7 @@ namespace UniqueDrinks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Contacto,Datanasc,Username")] Clientes clientes)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Contacto,Datanasc")] Clientes clientes)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace UniqueDrinks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Contacto,Datanasc,Username")] Clientes clientes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Contacto,Datanasc")] Clientes clientes)
         {
             if (id != clientes.Id)
             {

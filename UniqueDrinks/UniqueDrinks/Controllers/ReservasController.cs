@@ -17,9 +17,10 @@ namespace UniqueDrinks.Controllers
         private readonly UniqueDb _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ReservasController(UniqueDb context)
+        public ReservasController(UniqueDb context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Reservas
@@ -28,7 +29,7 @@ namespace UniqueDrinks.Controllers
             float total = 0;
             var user = await _userManager.GetUserAsync(User);
             var cliente = _context.Clientes.FirstOrDefault(c => c.Username == user.Id);
-            var uniqueDb = _context.Reservas.Include(r => r.Bebida).Include(r => r.ListaReserva).Where(c => c.ListaReserva.ClienteFK == cliente.Id && !c.ListaReserva.CheckOut); ;
+            var uniqueDb = _context.Reservas.Include(r => r.Bebida).Include(r => r.ListaReserva).Where(r => r.ListaReserva.ClienteFK == cliente.Id && !r.ListaReserva.CheckOut); ;
             List<Reservas> reserva = await uniqueDb.ToListAsync();
             foreach (var reservas in reserva)
             {
@@ -60,13 +61,7 @@ namespace UniqueDrinks.Controllers
             return View(reservas);
         }
 
-        // GET: Reservas/Create
-        public IActionResult Create()
-        {
-            ViewData["BebidaFK"] = new SelectList(_context.Bebidas, "Id", "Categoria");
-            ViewData["LRIdFK"] = new SelectList(_context.ListaReservas, "LRId", "LRId");
-            return View();
-        }
+        
 
         // POST: Reservas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -104,11 +99,11 @@ namespace UniqueDrinks.Controllers
             }
             var user = await _userManager.GetUserAsync(User);
             var cliente = _context.Clientes.FirstOrDefault(c => c.Username == user.Id);
-            var cart = _context.ListaReservas.FirstOrDefault(c => c.ClienteFK == cliente.Id && !c.CheckOut);
+            var lista = _context.ListaReservas.FirstOrDefault(l => l.ClienteFK == cliente.Id && !l.CheckOut);
             var reserva = new Reservas
             {
                 BebidaFK = (int)bebidaId,
-                LRIdFK = cart.LRId,
+                LRIdFK = lista.LRId,
                 Quantidade = 1
             };
             _context.Add(reserva);

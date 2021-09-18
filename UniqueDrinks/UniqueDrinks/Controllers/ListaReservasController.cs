@@ -27,7 +27,7 @@ namespace UniqueDrinks.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var uniqueDb = _context.ListaReservas.Include(l => l.Cliente).Where(c => c.Cliente.Username == user.Id);
+            var uniqueDb = _context.ListaReservas.Include(l => l.Cliente).Where(l => l.Cliente.Username == user.Id);
             return View(await uniqueDb.ToListAsync());
         }
 

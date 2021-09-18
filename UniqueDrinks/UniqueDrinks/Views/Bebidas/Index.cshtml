@@ -57,12 +57,12 @@
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-                @if (User.IsInRole("Gestor"))
-                {
+                
+                
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
                     <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                     <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                }
+               
                 <div class="addreserva">
 
                     <a class="btn btn-primary" asp-controller="Reservas" asp-action="AddToShoppingCart" asp-route-artigoId="@item.Id">Adicionar à Reserva</a>
