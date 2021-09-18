@@ -86,10 +86,10 @@ namespace UniqueDrinks.Data
 
         }
 
-        public DbSet<Bebidas> Bebidas { get; set; }
-        public DbSet<Clientes> Clientes { get; set; }
-        public DbSet<ListaReservas> ListaReservas { get; set; }
-        public DbSet<Reservas> Reservas { get; set; }
+        public virtual DbSet<Bebidas> Bebidas { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<ListaReservas> ListaReservas { get; set; }
+        public virtual DbSet<Reservas> Reservas { get; set; }
 
 
     }

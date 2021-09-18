@@ -5,40 +5,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using UniqueDrinks.Data;
 using UniqueDrinks.Models;
 
 namespace UniqueDrinks.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UniqueDb _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(UniqueDb context, ILogger<HomeController> logger)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Clientes()
-        {
-            return View();
-        }
-
-        public IActionResult Bebidas()
-        {
-            return View();
-        }
-
-        public IActionResult ListaReservas()
-        {
-            return View();
-        }
-
-        public IActionResult Reservas()
         {
             return View();
         }

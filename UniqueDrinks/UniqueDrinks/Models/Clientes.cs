@@ -25,8 +25,7 @@ namespace UniqueDrinks.Models
         /// Nome do Cliente
         /// </summary>
         [Required(ErrorMessage = "O Nome é de preenchimento obrigatório")]
-        [StringLength(60, ErrorMessage = "O {0} não pode ter mais de {1} caracteres.")]
-        [RegularExpression("[A-ZÓÂÍ][a-zçáéíóúàèìòùãõäëïöüâêîôûñ] + (( | d[ao](s)? | e |-|'| d')[A-ZÓÂÍ][a-zçáéíóúàèìòùãõäëïöüâêîôûñ] +){1,3}", ErrorMessage = "Deve escrever entre 2 e 4 nomes, começados por uma Maiúscula, seguidos de minúsculas.")]
+        [StringLength(40, ErrorMessage = "O {0} não pode ter mais de {1} caracteres.")]
         public string Nome { get; set; }
 
 

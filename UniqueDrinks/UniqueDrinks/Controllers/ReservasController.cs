@@ -34,8 +34,8 @@ namespace UniqueDrinks.Controllers
             foreach (var reservas in reserva)
             {
                 float preco = reservas.Bebida.Preco;
-                int quantidade = reservas.Quantidade;
-                total += preco * quantidade;
+                int quantidad = reservas.Quantidade;
+                total += preco * quantidad;
             }
             ViewBag.total = total;
             return View(reserva);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniqueDrinks.Data;
 
 namespace UniqueDrinks.Data.Migrations
 {
     [DbContext(typeof(UniqueDb))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918213137_clienteRe")]
+    partial class clienteRe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace UniqueDrinks.Data.Migrations
                         new
                         {
                             Id = "c",
-                            ConcurrencyStamp = "0433ebd3-d1a7-4d7d-87fc-66f9af65e462",
+                            ConcurrencyStamp = "5c243390-25dc-470e-8ab4-7431eb378f31",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         },
                         new
                         {
                             Id = "g",
-                            ConcurrencyStamp = "f936cca0-fb7d-4989-acc3-e571eebb8f37",
+                            ConcurrencyStamp = "7696e6d3-3761-4b99-9da3-75f3ffd1aa9d",
                             Name = "Gestor",
                             NormalizedName = "GESTOR"
                         });

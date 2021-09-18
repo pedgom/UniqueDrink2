@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniqueDrinks.Data;
 
 namespace UniqueDrinks.Data.Migrations
 {
     [DbContext(typeof(UniqueDb))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918190835_teste2")]
+    partial class teste2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace UniqueDrinks.Data.Migrations
                         new
                         {
                             Id = "c",
-                            ConcurrencyStamp = "0433ebd3-d1a7-4d7d-87fc-66f9af65e462",
+                            ConcurrencyStamp = "7388b47a-11f6-4577-96cf-c2e836d7b538",
                             Name = "Cliente",
                             NormalizedName = "CLIENTE"
                         },
                         new
                         {
                             Id = "g",
-                            ConcurrencyStamp = "f936cca0-fb7d-4989-acc3-e571eebb8f37",
+                            ConcurrencyStamp = "9ccc37e2-f8a7-40af-b5c8-038f14409eab",
                             Name = "Gestor",
                             NormalizedName = "GESTOR"
                         });
@@ -334,8 +336,8 @@ namespace UniqueDrinks.Data.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
